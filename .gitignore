@@ -29,3 +29,5 @@
 build/
 .cproject
 .project
+netlib-tuto.sublime-project
+netlib-tuto.sublime-workspace
