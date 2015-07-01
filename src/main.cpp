@@ -36,13 +36,14 @@ int main(int argc, char *argv[]) {
 
 		/*<< Creates the client. >>*/
 		http::client client;
-		/*<< Creates a request using a URI supplied on the command
-		 line. >>*/
-		http::client::request request(argv[1]);
+		/*<< Creates a request using a URI supplied on the command line. >>*/
+		http::client::request request(url);
+
 		/*<< Gets a response from the HTTP server. >>*/
 		http::client::response response = client.get(request);
 		/*<< Prints the response body to the console. >>*/
-		//cout << body(response);
+
+		cout << "Request Body: " << body(response);
 		cout << "Full url: " << url.string().c_str() << endl;
 		cout << "Query 1: " << url.query().c_str() << endl;
 		cout << "Query 2: " << url.query().c_str() << endl;
