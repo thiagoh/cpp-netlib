@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 2.8)
 
 project(app_project)
 
-add_executable(myapp main.cpp)
+add_executable(myapp src/main.cpp)
 
 install(TARGETS myapp DESTINATION bin)
 
@@ -19,7 +19,10 @@ find_package(OpenSSL)
 include_directories(${OpenSSL_INCLUDE_DIRS})
 target_link_libraries ( myapp ${OpenSSL_LIBRARIES} )
 
-set ( CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} /data/dev/cpp/cpp-netlib-build )
+#set ( CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} /data/dev/cpp/cpp-netlib-build )
+set (CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} /data/dev/cpp/cpp-netlib/build )
 find_package ( cppnetlib 0.11.0 REQUIRED )
 include_directories ( ${CPPNETLIB_INCLUDE_DIRS} )
 target_link_libraries ( myapp ${CPPNETLIB_LIBRARIES} )
+
+target_link_libraries( myapp ${ITK_LIBRARIES})
