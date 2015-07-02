@@ -9,6 +9,9 @@
 #define SRC_CRYPT_H_
 
 #include <string>
+#include <openssl/conf.h>
+#include <openssl/evp.h>
+#include <openssl/err.h>
 
 namespace com {
 namespace thiagoh {
@@ -19,11 +22,13 @@ public:
 	Crypt();
 	virtual ~Crypt();
 
-	static std::string encrypt(unsigned char* plaintext, int plaintextLength, unsigned char *key, unsigned char* iv);
-	static std::string encrypt(std::string plaintext, unsigned char *key, unsigned char* iv);
+	static void handleErrors(void) {
+		ERR_print_errors_fp(stderr);
+		abort();
+	};
 
-	static std::string decrypt(unsigned char* ciphertext, int plaintextLength, unsigned char *key, unsigned char* iv);
-	static std::string decrypt(std::string plaintext, int plaintextLength, unsigned char *key, unsigned char* iv);
+	static void encrypt(unsigned char* plaintext, int plaintextLength, unsigned char *key, unsigned char* iv, unsigned char* ciphertext, int* ciphertextLength);
+	static void decrypt(unsigned char* ciphertext, int ciphertextLength, unsigned char *key, unsigned char* iv, unsigned char* plaintext, int* plaintextLength);
 };
 
 } /* namespace crypt */

@@ -1,4 +1,3 @@
-
 /*
  #include<stdio.h>
 
@@ -16,8 +15,9 @@
  */
 #include <iostream>
 #include <string>
+#include <string.h>
 #include <map>
-#include "src/include/Crypt.h"
+#include "Crypt.h"
 
 using namespace com::thiagoh::crypt;
 
@@ -25,16 +25,28 @@ int main(int argc, char *argv[]) {
 
 	try {
 
-		std::string plain(argv[0]);
+		unsigned char* plain = (unsigned char *) argv[1];
+		int len = strlen(argv[1]);
+
 		unsigned char* iv = (unsigned char *) "abcdef";
 		unsigned char* key = (unsigned char *) "abcdefghij";
 
-		std::string cipher = Crypt::encrypt(plain, iv, key);
+		std::cout << argv[1] << std::endl;
 
-		std::cout << cipher << std::endl;
+		int ciphertextLen = 0;
+		unsigned char ciphertext[128];
+		Crypt::encrypt(plain, len, iv, key, ciphertext, &ciphertextLen);
 
-		//test2();
-		//test1(argv[1]);
+		/* Do something useful with the ciphertext here */
+		printf("Ciphertext is:\n");
+
+		for (unsigned int i = 0; i < ciphertextLen; i++) {
+			printf("%x", ciphertext[i] & 0xff);
+		}
+
+		printf("\n");
+
+		std::cout << std::endl;
 
 	} catch (std::exception &e) {
 		std::cerr << e.what() << std::endl;
