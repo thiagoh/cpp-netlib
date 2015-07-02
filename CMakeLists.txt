@@ -6,7 +6,10 @@ cmake_minimum_required(VERSION 2.8)
 
 project(app_project)
 
-add_executable(myapp src/main.cpp)
+file(GLOB SOURCES src/impl/*.cpp)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR} src/include)
+
+add_executable(myapp main.cpp ${SOURCES})
 
 install(TARGETS myapp DESTINATION bin)
 
